@@ -1,9 +1,7 @@
-import Test from "../components/ui/Test";
-
 export default function Home() {
   return (
     <div>
-      <Test />
+      <h3>Home</h3>
     </div>
   );
 }

@@ -8,6 +8,9 @@ export default function Layout({ children }) {
         <th className={classes.leftMenu}>
           <LeftMenu />
         </th>
+        <th className={classes.mainContent}>
+          { children }
+        </th>
       </tr>
     </table>
   );
