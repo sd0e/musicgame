@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/musicgame/static/css/main.5bb93313.css",
+    "main.js": "/musicgame/static/js/main.4417cfd3.js",
+    "index.html": "/musicgame/index.html",
+    "main.5bb93313.css.map": "/musicgame/static/css/main.5bb93313.css.map",
+    "main.4417cfd3.js.map": "/musicgame/static/js/main.4417cfd3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5bb93313.css",
+    "static/js/main.4417cfd3.js"
+  ]
+}
