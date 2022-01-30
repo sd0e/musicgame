@@ -1,0 +1,8 @@
+.buttonTextOuter {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  margin-left: 1rem;
+}

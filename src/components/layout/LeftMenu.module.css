@@ -1,0 +1,23 @@
+.leftMenuOuterHolder {
+  width: 15rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.gameTitle {
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  font-weight: 600;
+  padding: 1.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.gameTitleText {
+  display: inline-block;
+  margin-left: 1rem;
+}
