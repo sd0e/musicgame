@@ -55,7 +55,7 @@ export default function LeftMenu() {
             <span className={classes.gameTitleText}>Music Game</span>
           </span>
           <Button variant="contained">
-            <ButtonText Icon={Home} Name="Home" />
+            <ButtonText Icon={Home} Name="Test Edit" />
           </Button>
         </div>
         <Button onClick={changeTheme}>
