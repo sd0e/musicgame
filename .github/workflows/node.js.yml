@@ -18,7 +18,7 @@ jobs:
     - name: Install Packages
       run: npm ci
     - name: Build page
-      run: "echo 'musicgame.sebdoe.com' > ./build/CNAME && npm run build"
+      run: npm run build
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v3
       with:
