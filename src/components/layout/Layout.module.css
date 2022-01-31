@@ -22,12 +22,9 @@
 }
 
 .mobileHeader {
-  background-color: #201e1e;
-  color: #cccccc;
+  background-color: var(--bg);
+  color: var(--text);
   padding: 0.5rem 1rem;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .mobileHeaderLeft {
@@ -42,17 +39,14 @@
 }
 
 .mobileContent {
-  width: 100%;
-  height: calc(100% - 2rem);
-  padding: 0.5rem;
-  padding-top: 0rem;
+  padding: 0rem 1.5rem;
   transform: scale(0.85);
 }
 
 .mobileNavMenuHolder {
-  width: 22rem;
-  max-width: calc(100vw - 6rem);
+  padding: 1.5rem 1.5rem 1.5rem 0rem;
+  width: 15rem;
+  max-width: 100vw;
   height: 100%;
-  padding: 3rem;
   background-color: var(--bg);
 }

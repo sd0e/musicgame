@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import {
   ThemeProvider,
   SwipeableDrawer,
-  NavMenu,
   IconButton,
   Button,
   createTheme
 } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Menu, MusicNote } from "@mui/icons-material";
 
 import classes from "./Layout.module.css";
 import LeftMenu from "./LeftMenu";
+import ButtonText from "../ui/ButtonText";
 
 export default function Layout({ children }) {
   let navigate = useNavigate();
@@ -45,7 +45,9 @@ export default function Layout({ children }) {
     palette: {
       mode: "dark",
       primary: {
-        main: "#cccccc"
+        light: "#757ce8",
+        main: "#3f50b5",
+        dark: "#002884"
       }
     },
     components: {
@@ -57,11 +59,12 @@ export default function Layout({ children }) {
             fontSize: "1.15rem",
             fontFamily: `"Inter", sans-serif`,
             fontWeight: 500,
-            textTransform: "none"
-          }
-        }
-      }
-    }
+            textTransform: "none",
+            color: localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e",
+          },
+        },
+      },
+    },
   });
 
   if (!isMobile) {
@@ -99,10 +102,10 @@ export default function Layout({ children }) {
               onClick={() => setNavBarOpen(true)}
               aria-label="open menu"
             >
-              <Menu fontSize="medium" style={{ color: "#cccccc" }} />
+              <Menu fontSize="medium" style={{ color: localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e" }} />
             </IconButton>
             <Button onClick={() => navigate("/")} aria-label="home">
-              Music Game
+              <ButtonText Icon={MusicNote} Name="Music Game" />
             </Button>
           </div>
         </header>
