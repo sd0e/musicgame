@@ -6,29 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import classes from "./LeftMenu.module.css";
 import ButtonText from "../ui/ButtonText";
 
-export default function LeftMenu({ Mobile, OnChoice }) {
-  const [color, setColor] = useState(localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e");
-
+export default function LeftMenu({ Mobile, OnChoice, Status, Theme, changeTheme }) {
   const location = useLocation();
   let navigate = useNavigate();
 
-  const changeTheme = () => {
-    localStorage.colorTheme =
-      localStorage.colorTheme === "dark" ? "light" : "dark";
-    document.documentElement.style.setProperty(
-      "--bg",
-      localStorage.colorTheme === "dark" ? "#0e0e0e" : "#f2f2f2"
-    );
-    document.documentElement.style.setProperty(
-      "--text",
-      localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e"
-    );
-    setColor(localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e");
-  };
-
   const theme = createTheme({
     palette: {
-      mode: localStorage.colorTheme,
+      mode: Theme,
       primary: {
         light: "#757ce8",
         main: "#3f50b5",
@@ -47,7 +31,7 @@ export default function LeftMenu({ Mobile, OnChoice }) {
             justifyContent: "left",
             padding: "0.5rem 1.5rem",
             textTransform: "none",
-            color: color
+            color: Theme === 'dark' ? '#f2f2f2' : '#0e0e0e',
           }
         }
       }
@@ -78,10 +62,10 @@ export default function LeftMenu({ Mobile, OnChoice }) {
           </Button>
         </div>
         <div>
-          <Button>
-            <ButtonText Icon={AccountCircle} Name="Sign In" />
+          <Button variant={location.pathname === '/account' && 'contained'} sx={location.pathname === '/account' && { color: '#f2f2f2' }} onClick={() => goTo('/account')}>
+            <ButtonText Icon={AccountCircle} Name={Status === 'loading' ? 'Loading' : (Status === 'signedOut' ? 'Sign In' : 'Account Settings')} />
           </Button>
-          <Button onClick={() => {changeTheme(); OnChoice()}}>
+          <Button onClick={() => {changeTheme(); if (Mobile) OnChoice()}}>
             <ButtonText Icon={Palette} Name="Theme" />
           </Button>
         </div>

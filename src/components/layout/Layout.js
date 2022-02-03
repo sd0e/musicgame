@@ -13,11 +13,10 @@ import classes from "./Layout.module.css";
 import LeftMenu from "./LeftMenu";
 import ButtonText from "../ui/ButtonText";
 
-export default function Layout({ children }) {
+export default function Layout({ children, Status, Theme, changeTheme }) {
   let navigate = useNavigate();
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 870);
-  const [compactMode, setCompactMode] = useState(window.innerWidth <= 405);
   const [navBarOpen, setNavBarOpen] = useState(false);
 
   const checkIsMobile = () => {
@@ -60,7 +59,7 @@ export default function Layout({ children }) {
             fontFamily: `"Inter", sans-serif`,
             fontWeight: 500,
             textTransform: "none",
-            color: localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e",
+            color: getComputedStyle(document.body).getPropertyValue('--text'),
           },
         },
       },
@@ -72,7 +71,7 @@ export default function Layout({ children }) {
       <table className={classes.tableOuter}>
         <tr>
           <th className={classes.leftMenu}>
-            <LeftMenu />
+            <LeftMenu Status={Status} Theme={Theme} changeTheme={changeTheme} />
           </th>
           <th className={classes.mainContent}>{children}</th>
         </tr>
@@ -91,7 +90,9 @@ export default function Layout({ children }) {
             <LeftMenu
               Mobile
               OnChoice={() => setNavBarOpen(false)}
-              CompactMode={compactMode}
+              Status={Status}
+              Theme={Theme}
+              changeTheme={changeTheme}
             />
           </div>
         </SwipeableDrawer>
@@ -102,7 +103,7 @@ export default function Layout({ children }) {
               onClick={() => setNavBarOpen(true)}
               aria-label="open menu"
             >
-              <Menu fontSize="medium" style={{ color: localStorage.colorTheme === "dark" ? "#f2f2f2" : "#0e0e0e" }} />
+              <Menu fontSize="medium" style={{ color: getComputedStyle(document.body).getPropertyValue('--text') }} />
             </IconButton>
             <Button onClick={() => navigate("/")} aria-label="home">
               <ButtonText Icon={MusicNote} Name="Music Game" />

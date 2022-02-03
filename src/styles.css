@@ -37,3 +37,7 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 500;
 }
+
+h3 {
+  margin-bottom: 2rem;
+}
