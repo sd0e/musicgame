@@ -26,11 +26,6 @@ export default function Layout({ children, Status, Theme, changeTheme }) {
 
     if (windowWidth >= desktopMinWidth && isMobile) setIsMobile(false);
     else if (windowWidth < desktopMinWidth && !isMobile) setIsMobile(true);
-
-    if (windowWidth <= compactModeMaxWidth && !compactMode)
-      setCompactMode(true);
-    else if (windowWidth > compactModeMaxWidth && compactMode)
-      setCompactMode(false);
   };
 
   window.addEventListener("resize", checkIsMobile, true);
@@ -59,11 +54,11 @@ export default function Layout({ children, Status, Theme, changeTheme }) {
             fontFamily: `"Inter", sans-serif`,
             fontWeight: 500,
             textTransform: "none",
-            color: getComputedStyle(document.body).getPropertyValue('--text'),
-          },
-        },
-      },
-    },
+            color: getComputedStyle(document.body).getPropertyValue("--text")
+          }
+        }
+      }
+    }
   });
 
   if (!isMobile) {
@@ -103,7 +98,14 @@ export default function Layout({ children, Status, Theme, changeTheme }) {
               onClick={() => setNavBarOpen(true)}
               aria-label="open menu"
             >
-              <Menu fontSize="medium" style={{ color: getComputedStyle(document.body).getPropertyValue('--text') }} />
+              <Menu
+                fontSize="medium"
+                style={{
+                  color: getComputedStyle(document.body).getPropertyValue(
+                    "--text"
+                  )
+                }}
+              />
             </IconButton>
             <Button onClick={() => navigate("/")} aria-label="home">
               <ButtonText Icon={MusicNote} Name="Music Game" />
