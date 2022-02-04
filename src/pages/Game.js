@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { PlayArrow } from "@mui/icons-material";
 
 import FancyButton from "../components/ui/FancyButton";
-import ButtonText from "../components/ui/ButtonText";
 
-export default function Home() {
+export default function Game() {
   const [signedIn, setSignedIn] = useState("Loading");
 
   let navigate = useNavigate();
@@ -35,10 +33,7 @@ export default function Home() {
   } else {
     return (
       <div>
-        <h3>Welcome, {signedIn.displayName}</h3>
-        <FancyButton onClick={() => navigate("/game")}>
-          <ButtonText Icon={PlayArrow} Name="Play Game" />
-        </FancyButton>
+        <h3>Game</h3>
       </div>
     );
   }
