@@ -1,0 +1,61 @@
+.gameContainer {
+	height: 100%;
+}
+
+.coverInput {
+	position: fixed;
+	width: 100%;
+	height: calc(100% - 2rem);
+	background: rgba(0, 0, 0, 0);
+	border: 0;
+	outline: 0;
+	cursor: default;
+	color: rgba(0, 0, 0, 0);
+	z-index: 2;
+}
+
+.gameOuter {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+}
+
+.gameBottom {
+	width: calc(100% - 5rem);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.heart {
+	color: #BC2222;
+	margin-right: 0.25rem;
+	transition: 0.1s ease-in-out;
+	-webkit-text-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+	-moz-text-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+	text-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+}
+
+@keyframes heartAnimation {
+	0% {
+		filter: opacity(1);
+	}
+	25% {
+		filter: opacity(0.4);
+	}
+	75% {
+		filter: opacity(1);
+	}
+	100% {
+		filter: opacity(0.4);
+	}
+}
+
+.heart.faded {
+	animation: 0.8s ease-in-out heartAnimation;
+	filter: opacity(0.4);
+}

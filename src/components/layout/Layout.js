@@ -64,12 +64,14 @@ export default function Layout({ children, Status, Theme, changeTheme }) {
   if (!isMobile) {
     return (
       <table className={classes.tableOuter}>
-        <tr>
-          <th className={classes.leftMenu}>
-            <LeftMenu Status={Status} Theme={Theme} changeTheme={changeTheme} />
-          </th>
-          <th className={classes.mainContent}>{children}</th>
-        </tr>
+        <thead>
+          <tr>
+            <th className={classes.leftMenu}>
+              <LeftMenu Status={Status} Theme={Theme} changeTheme={changeTheme} />
+            </th>
+            <th className={classes.mainContent}>{children}</th>
+          </tr>
+        </thead>
       </table>
     );
   } else {

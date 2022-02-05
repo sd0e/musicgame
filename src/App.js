@@ -140,7 +140,9 @@ export default function App() {
                 path="/game"
                 element={
                   <Loader>
-                    <Game />
+                    <Game
+                      setProgress={setProgress}
+                    />
                   </Loader>
                 }
               />
