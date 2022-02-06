@@ -8,6 +8,8 @@ import fetchRandomSong from "../firebase/fetchRandomSong";
 import classes from "./Game.module.css";
 import NameModule from "../components/ui/NameModule";
 import StatModule from "../components/ui/StatModule";
+import fetch from "../firebase/fetch";
+import write from "../firebase/write";
 
 export default function Game() {
   const [signedIn, setSignedIn] = useState("Loading");
@@ -16,13 +18,18 @@ export default function Game() {
   const [nameInput, setNameInput] = useState('');
   const [currentSongCompleted, setCurrentSongCompleted] = useState(false);
   const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useState('Loading');
 
   let navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
-      if (user) setSignedIn(user);
+      if (user) {
+        setSignedIn(user);
+        fetch(`/user/${user.uid}/highscore`).then(userHighscore => setHighscore(userHighscore));
+        fetch(`/user/${user.uid}/currentGame`).then(currentGame => { if (currentGame !== null && currentGame !== 0) setScore(currentGame) } );
+      }
       else setSignedIn("signedOut");
     });
 
@@ -33,17 +40,40 @@ export default function Game() {
     setNameInput('');
     if (completedSong.trim() === currentSong.name.trim()) {
       setCurrentSongCompleted(true);
-      if (hearts === 2) setScore(score + 3);
-      else setScore(score + 1);
+      let newScore;
+      if (hearts === 2) newScore = score + 3;
+      else newScore = score + 1;
+      setScore(newScore);
       setHearts(2);
-      fetchRandomSong().then(randomSong => {
-        setCurrentSong(randomSong);
-        setCurrentSongCompleted(false);
+      write(`/user/${signedIn.uid}/currentGame`, newScore).then(() => {
+        fetchRandomSong().then(randomSong => {
+          setCurrentSong(randomSong);
+          setCurrentSongCompleted(false);
+        });
       });
     } else {
       setHearts(hearts - 1);
       if (hearts === 1) {
-        navigate('/results');
+        fetch(`/user/${signedIn.uid}/numGames`).then(numGames => {
+          write(`/user/${signedIn.uid}/game/${numGames}`, {
+            score: score,
+            date: new Date().getTime()
+          }).then(() => {
+            write(`/user/${signedIn.uid}/numGames`, numGames + 1).then(() => {
+              fetch(`/user/${signedIn.uid}/highscore`).then(highscore => {
+                write(`/user/${signedIn.uid}/currentGame`, null).then(() => {
+                  if (score > highscore || highscore === null) {
+                    write(`/user/${signedIn.uid}/highscore`, score).then(() => {
+                      navigate('/results');
+                    });
+                  } else {
+                    navigate('/results');
+                  }
+                });
+              });
+            });
+          });
+        });
       }
     }
   }
@@ -77,6 +107,7 @@ export default function Game() {
                 <Favorite className={hearts === 1 ? [classes.heart, classes.faded].join(' ') : classes.heart} />
               </div>
               <div>
+                <StatModule Title="Highscore" Value={highscore} />
                 <StatModule Title="Points" Value={score} />
               </div>
             </div>

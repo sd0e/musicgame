@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile
 } from "firebase/auth";
+import write from "./write";
 
 const auth = getAuth();
 
@@ -28,6 +29,7 @@ const signInUser = (option, email, password) => {
           updateProfile(user, {
             displayName: response ? response : "User"
           }).then(() => resolve(user));
+          write(`/user/${user.uid}/numGames`, 0);
         })
         .catch((error) => {
           const errorMessage = error.message;
