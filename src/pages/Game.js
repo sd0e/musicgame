@@ -28,12 +28,25 @@ export default function Game() {
       if (user) {
         setSignedIn(user);
         fetch(`/user/${user.uid}/highscore`).then(userHighscore => setHighscore(userHighscore));
-        fetch(`/user/${user.uid}/currentGame`).then(currentGame => { if (currentGame !== null && currentGame !== 0) setScore(currentGame) } );
+        fetch(`/user/${user.uid}/currentGame`).then(currentGame => {
+          if (currentGame !== null) {
+            setScore(currentGame.score);
+            fetch(`/songs/songList/${currentGame.songIdx}`).then(song => setCurrentSong(song));
+          } else {
+            fetchRandomSong().then(randomSongArr => {
+              const randomSong = randomSongArr[0];
+              const randomSongIdx = randomSongArr[1];
+              console.log(signedIn, signedIn.uid);
+              write(`/user/${user.uid}/currentGame`, {
+                score: 0,
+                songIdx: randomSongIdx
+              });
+            });
+          }
+        } );
       }
       else setSignedIn("signedOut");
     });
-
-    fetchRandomSong().then(randomSong => setCurrentSong(randomSong));
   }, []);
 
   const completed = completedSong => {
@@ -45,12 +58,17 @@ export default function Game() {
       else newScore = score + 1;
       setScore(newScore);
       setHearts(2);
-      write(`/user/${signedIn.uid}/currentGame`, newScore).then(() => {
-        fetchRandomSong().then(randomSong => {
-          setCurrentSong(randomSong);
-          setCurrentSongCompleted(false);
+        fetchRandomSong().then(randomSongArr => {
+          const randomSong = randomSongArr[0];
+          const randomSongIdx = randomSongArr[1];
+          write(`/user/${signedIn.uid}/currentGame`, {
+            score: newScore,
+            songIdx: randomSongIdx
+          }).then(() => {
+            setCurrentSong(randomSong);
+            setCurrentSongCompleted(false);
+          });
         });
-      });
     } else {
       setHearts(hearts - 1);
       if (hearts === 1) {
@@ -64,7 +82,12 @@ export default function Game() {
                 write(`/user/${signedIn.uid}/currentGame`, null).then(() => {
                   if (score > highscore || highscore === null) {
                     write(`/user/${signedIn.uid}/highscore`, score).then(() => {
-                      navigate('/results');
+                      write(`/leaderboard/${signedIn.uid}`, {
+                        name: signedIn.displayName,
+                        highscore: score
+                      }).then(() => {
+                        navigate('/results');
+                      });
                     });
                   } else {
                     navigate('/results');

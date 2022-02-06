@@ -1,0 +1,15 @@
+.outerContainer {
+	background: rgba(var(--textRGBA), var(--textRGBA), var(--textRGBA), 0.04);
+	width: calc(100% - 6rem);
+	padding: 1.5rem;
+	border-radius: 0.75rem;
+	margin-bottom: 1.5rem;
+}
+
+.outerContainerTitle {
+	display: block;
+	color: var(--text);
+	margin-bottom: 1.5rem;
+	filter: opacity(0.8);
+	font-weight: 600;
+}

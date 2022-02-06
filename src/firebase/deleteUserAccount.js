@@ -15,13 +15,15 @@ const deleteUserAccount = () => {
 		const uid = getAuth().currentUser.uid;
 		const db = getDatabase();
 		remove(child(ref(db), `/user/${uid}`)).then(() => {
-			reauthenticateWithCredential(getAuth().currentUser, credential).then(() => {
-				deleteUser(getAuth().currentUser)
-				.then(() => {
-					resolve();
+			remove(child(ref(db), `/leaderboard/${uid}`)).then(() => {
+				reauthenticateWithCredential(getAuth().currentUser, credential).then(() => {
+					deleteUser(getAuth().currentUser)
+					.then(() => {
+						resolve();
+					});
 				});
 			});
-		})
+		});
 	});
 }
 

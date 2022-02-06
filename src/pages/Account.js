@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createTheme, ThemeProvider, TextField, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import signInUser from "../firebase/signInUser";
 import signOutUser from "../firebase/signOutUser";
@@ -10,11 +11,14 @@ export default function Account({ onStatusChange, setProgress, Status }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  let navigate = useNavigate();
+
   const signIn = () => {
     setProgress(20);
     signInUser("signIn", email, password).then((user) => {
       setProgress(100);
       onStatusChange(user);
+      navigate('/');
     });
   };
 
@@ -23,6 +27,7 @@ export default function Account({ onStatusChange, setProgress, Status }) {
     signInUser("signUp", email, password).then((user) => {
       setProgress(100);
       onStatusChange(user);
+      navigate('/');
     });
   };
 
@@ -31,6 +36,7 @@ export default function Account({ onStatusChange, setProgress, Status }) {
     signOutUser().then(() => {
       setProgress(100);
       onStatusChange("signedOut");
+      navigate('/');
     });
   };
 

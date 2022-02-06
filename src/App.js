@@ -18,6 +18,7 @@ const Leaderboard = lazy(() => import("./pages/Leaderboard"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Account = lazy(() => import("./pages/Account"));
 const Game = lazy(() => import("./pages/Game"));
+const Results = lazy(() => import("./pages/Results"));
 
 export default function App() {
   const [progress, setProgress] = useState(0);
@@ -48,8 +49,16 @@ export default function App() {
     theme === "dark" ? "#0e0e0e" : "#f2f2f2"
   );
   document.documentElement.style.setProperty(
+    "--bgRGBA",
+    theme === "dark" ? "14" : "242"
+  );
+  document.documentElement.style.setProperty(
     "--text",
     theme === "dark" ? "#f2f2f2" : "#0e0e0e"
+  );
+  document.documentElement.style.setProperty(
+    "--textRGBA",
+    theme === "dark" ? "242" : "14"
   );
 
   const Loader = ({ children }) => {
@@ -143,6 +152,15 @@ export default function App() {
                     <Game
                       setProgress={setProgress}
                     />
+                  </Loader>
+                }
+              />
+              <Route
+                exact
+                path="/results"
+                element={
+                  <Loader>
+                    <Results />
                   </Loader>
                 }
               />
