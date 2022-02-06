@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/773.1e67beaf.chunk.js","mappings":"qKAAe,SAASA,IACtB,OACE,0BACE","sources":["pages/Leaderboard.js"],"sourcesContent":["export default function Leaderboard() {\n  return (\n    <div>\n      <h3>Leaderboard</h3>\n    </div>\n  );\n}"],"names":["Leaderboard"],"sourceRoot":""}
