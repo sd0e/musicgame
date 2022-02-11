@@ -19,6 +19,7 @@ const Settings = lazy(() => import("./pages/Settings"));
 const Account = lazy(() => import("./pages/Account"));
 const Game = lazy(() => import("./pages/Game"));
 const Results = lazy(() => import("./pages/Results"));
+const Admin = lazy(() => import("./pages/Admin"));
 
 export default function App() {
   const [progress, setProgress] = useState(0);
@@ -149,9 +150,7 @@ export default function App() {
                 path="/game"
                 element={
                   <Loader>
-                    <Game
-                      setProgress={setProgress}
-                    />
+                    <Game setProgress={setProgress} />
                   </Loader>
                 }
               />
@@ -161,6 +160,15 @@ export default function App() {
                 element={
                   <Loader>
                     <Results />
+                  </Loader>
+                }
+              />
+              <Route
+                exact
+                path="/admin"
+                element={
+                  <Loader>
+                    <Admin Status={status} />
                   </Loader>
                 }
               />
